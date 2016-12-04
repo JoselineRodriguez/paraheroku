@@ -1,0 +1,8 @@
+[debug] Copy resource mappings: 
+[debug] 	(C:\Users\win7\Desktop\tareaigf\biodiversidadebean\conf\application.conf,C:\Users\win7\Desktop\tareaigf\biodiversidadebean\target\scala-2.11\classes\application.conf)
+[debug] 	(C:\Users\win7\Desktop\tareaigf\biodiversidadebean\conf\evolutions,C:\Users\win7\Desktop\tareaigf\biodiversidadebean\target\scala-2.11\classes\evolutions)
+[debug] 	(C:\Users\win7\Desktop\tareaigf\biodiversidadebean\conf\logback.xml,C:\Users\win7\Desktop\tareaigf\biodiversidadebean\target\scala-2.11\classes\logback.xml)
+[debug] 	(C:\Users\win7\Desktop\tareaigf\biodiversidadebean\conf\messages,C:\Users\win7\Desktop\tareaigf\biodiversidadebean\target\scala-2.11\classes\messages)
+[debug] 	(C:\Users\win7\Desktop\tareaigf\biodiversidadebean\conf\routes,C:\Users\win7\Desktop\tareaigf\biodiversidadebean\target\scala-2.11\classes\routes)
+[debug] 	(C:\Users\win7\Desktop\tareaigf\biodiversidadebean\conf\evolutions\default,C:\Users\win7\Desktop\tareaigf\biodiversidadebean\target\scala-2.11\classes\evolutions\default)
+[debug] 	(C:\Users\win7\Desktop\tareaigf\biodiversidadebean\conf\evolutions\default\1.sql,C:\Users\win7\Desktop\tareaigf\biodiversidadebean\target\scala-2.11\classes\evolutions\default\1.sql)

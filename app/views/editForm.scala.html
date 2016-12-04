@@ -1,0 +1,66 @@
+@(id: Long, bioForm: Form[Bio])
+
+
+
+
+
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Editar Biodiversidad</h1>
+    
+    @form(routes.Application.update(id)) {
+            <fieldset>
+        
+            @textarea(bioForm("flora"), '_label -> "Flora", '_help -> "",'rows -> 2,'cols -> 600)
+            @textarea(bioForm("fauna"), '_label -> "Fauna", '_help -> "",'rows -> 2,'cols -> 600)
+            @textarea(bioForm("contaminacionagua"), '_label -> "Contaminación Agua", '_help -> "",'rows -> 2,'cols -> 600)
+            @textarea(bioForm("contaminacionacustica"), '_label -> "Contaminacíon Acustica", '_help -> "",'rows -> 2,'cols -> 600)
+                       
+            @select(
+                bioForm("calidad.id"), 
+                options(Calidad.options), 
+                '_label -> "Calidad del Aire", '_default -> "-- Escoge la Calidad del Aire del Lugar--",
+                '_showConstraints -> false
+            )
+           
+               @select(
+                bioForm("departamento.id"), 
+                options(Departamento.options), 
+                '_label -> "Departamento", '_default -> "-- Escoge un Departamento--",
+                '_showConstraints -> false
+            )
+            
+            @select(
+                bioForm("municipio.id"), 
+                options(Municipio.options), 
+                '_label -> "Municipio", '_default -> "-- Escoge un Municipio--",
+                '_showConstraints -> false
+            )
+            
+             @textarea(bioForm("recomendacion"), '_label -> "Recomendaciones", '_help -> "Cualquier nota que desee agregar",'rows -> 2,'cols -> 600)
+
+        </fieldset>
+
+
+        </fieldset>
+        <div class="actions">
+            <input type="submit" value="Guardar Biodiversidad" class="btn primary"> or 
+            <a href="@routes.Application.list()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+    @form(routes.Application.delete(id), 'class -> "topRight") {
+        <input type="submit" value="Eliminar Biodiversidad" class="btn danger">
+    }
+    <div style="position:absolute; left:600px; top:100px; width:728px; height:70px ">
+
+         <img WIDTH=700 HEIGHT=500 align="right" src="@routes.Assets.at("images/iquality.jpg")"/>
+         
+         </div> 
+         }

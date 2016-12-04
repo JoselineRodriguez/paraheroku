@@ -1,0 +1,172 @@
+@(currentPage: com.avaje.ebean.PagedList[Bio], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    
+    // Generate the link
+    routes.Application.list(newPage, sortBy, order, currentFilter)
+    
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main {
+    
+    <h1 id="homeTitle">@Messages("bio.list.title", currentPage.getTotalRowCount)</h1>
+
+    @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+    } 
+
+    <div id="actions">
+        
+        <form action="@link(0, "flora")" method="GET">
+            <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por flora de Biodiversidad...">
+            <input type="submit" id="searchsubmit" value="Filtar por flora" class="btn primary">
+        </form>
+       <center><img WIDTH=1150 HEIGHT=250 align=center src="@routes.Assets.at("images/a.jpg")"/></center> 
+        <a class="btn success" id="add" href="@routes.Application.create()">Agregar una Biodiversidad Nueva</a>
+        
+    </div>
+    
+    @if(currentPage.getTotalRowCount == 0) {
+        
+        <div class="well">
+            <em>Nada que mostrar</em>
+        </div>
+        
+    } else {
+        
+        <table class="bio zebra-striped">
+            <thead>
+                <tr>
+                    @header("flora", "Flora")
+                    @header("fauna", "Fauna")
+                    @header("contaminacionagua", "Contaminación Agua")
+                    @header("contaminacionacustica", "Contaminación Acustica")
+                    @header("calidad.nombre", "Calidad del Aire")
+                    
+                    @header("departamento.nombre", "Departamento")
+                    @header("municipio.nombre", "Municipio")
+                    @header("recomendacion", "Recomendaciones")
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(bio <- currentPage.getList) {
+                    <tr>
+                        <td><a href="@routes.Application.edit(bio.id)">@bio.flora</a></td>
+                        <td>
+                            @if(bio.fauna == null) {
+                                <em>-</em>
+                            } else {
+                                @bio.fauna
+                            }
+                        </td>
+                        <td>
+                            @if(bio.contaminacionagua == null) {
+                                <em>-</em>
+                            } else {
+                                @bio.contaminacionagua
+                            }
+                        </td>
+                                           <td>
+                            @if(bio.contaminacionacustica == null) {
+                                <em>-</em>
+                            } else {
+                                @bio.contaminacionacustica
+                            }
+                        </td>
+                        <td>
+                            @if(bio.calidad == null) {
+                                <em>-</em>
+                            } else {
+                                @bio.calidad.nombre
+                            }
+                        </td>
+
+                        
+                         <td>
+                            @if(bio.departamento == null) {
+                                <em>-</em>
+                            } else {
+                                @bio.departamento.nombre
+                            }
+                        </td>
+                        <td>
+                            @if(bio.municipio == null) {
+                                <em>-</em>
+                            } else {
+                                @bio.municipio.nombre
+                            }
+                        </td>
+                        
+                        <td>
+                            @if(bio.recomendacion == null) {
+                                <em>-</em>
+                            } else {
+                                @bio.recomendacion
+                            }
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    
+}
